@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="tb18003">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERÍA COUNTER</title>
+    <style>
+        @font-face {
+            font-family: "DSEG7";
+            src: url("./assets/fonts/7seg.ttf");
+        }
+
+        body{
+            background-color: black;
+            font-family: monospace;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .center{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1{
+            font-size: 7vh;
+            font-weight: 100;
+        }
+
+        .blink {
+            animation: blink-animation 2s step-start infinite;
+        }
+
+        @keyframes blink-animation {
+            50% {
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <p style="font-size: 5vh; margin: 0;">ALMERÍA COUNTER</p>
+        <p style="font-size: 2vh; margin: 0;">días / horas / minutos / segundos</p>
+        <h1 id="clock" style="font-family: DSEG7;text-align: center; color: yellow;">
+            <span id="days"></span>
+            <span class="blink">:</span>
+            <span id="hours"></span>
+            <span class="blink">:</span>
+            <span id="minutes"></span>
+            <span class="blink">:</span>
+            <span id="seconds"></span>
+
+        </h1>
+        <audio src="./assets/music/victory.mp3" autoplay preload="auto" ></audio>
+    </div>
+    <script src="./vendor/moment.min.js"></script>
+    <script>
+        const almeriaDate = new Date(Date.parse("2024/07/22, 09:00"))
+
+        setInterval(() => {
+            const now = new Date()
+            const time = Math.abs(almeriaDate - now)
+            
+            dhm(time)
+        }, 1000)
+
+        function dhm (ms) {
+            const days = Math.floor(ms / (24*60*60*1000));
+            const daysms = ms % (24*60*60*1000);
+            const hours = Math.floor(daysms / (60*60*1000));
+            const hoursms = ms % (60*60*1000);
+            const minutes = Math.floor(hoursms / (60*1000));
+            const minutesms = ms % (60*1000);
+            const sec = Math.floor(minutesms / 1000);
+
+            pad = (n) => n < 10 ? '0' + n : n
+
+            document.getElementById("days").innerText = days
+            document.getElementById("hours").innerText = pad(hours)
+            document.getElementById("minutes").innerText = pad(minutes)
+            document.getElementById("seconds").innerText = pad(sec)
+        }
+    </script>
+</body>
+</html>
