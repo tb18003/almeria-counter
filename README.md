@@ -1,3 +1,3 @@
 # Almería counter
 
-Un contador para ver cuánto queda para Almería 🔥🔥
+Un super contador para ver cuánto queda para Almería 🔥🔥
