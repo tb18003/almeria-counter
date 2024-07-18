@@ -57,11 +57,22 @@
             <span id="seconds"></span>
 
         </h1>
-        <audio src="./assets/music/victory.mp3" autoplay preload="auto" ></audio>
+        <iframe src="assets/music/victory.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+        </iframe> 
+        <audio autoplay loop  id="playAudio">
+            <source src="assets/music/victory.mp3">
+        </audio>
     </div>
     <script src="./vendor/moment.min.js"></script>
     <script>
         const almeriaDate = new Date(Date.parse("2024/07/22, 09:00"))
+        var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (!isChrome){
+            document.getElementById('iframeAudio').remove()
+        }
+        else {
+            document.getElementById('#playAudio').remove() // just to make sure that it will not have 2x audio in the background 
+        }
 
         setInterval(() => {
             const now = new Date()
