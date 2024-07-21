@@ -38,16 +38,27 @@
             cursor: pointer;
             padding: 20px;
             font-family: monospace;
-            border: 1px solid yellow;
+            border: 1px solid gold;
         }
 
         .blink {
             animation: blink-animation 2s step-start infinite;
         }
 
+        .blink-color{
+            color: gold;
+            animation: blink-color-animation 2s step-start infinite;
+        }
+
         @keyframes blink-animation {
             50% {
                 visibility: hidden;
+            }
+        }
+
+        @keyframes blink-color-animation {
+            50%{
+                color: red;
             }
         }
     </style>
@@ -56,7 +67,7 @@
     <div class="center">
         <p style="font-size: 5vh; margin: 0;">ALMERÍA COUNTER</p>
         <p style="font-size: 2vh; margin: 0;">días / horas / minutos / segundos</p>
-        <h1 id="clock" style="font-family: DSEG7;text-align: center; color: yellow;">
+        <h1 id="clock" style="font-family: DSEG7;text-align: center; color: gold;">
             <span id="days">--</span>
             <span class="blink">:</span>
             <span id="hours">--</span>
@@ -69,11 +80,20 @@
         <button id="btn">Pulsa aquí pa meterle epicidad</button>
     </div>
     <script>
-        const almeriaDate = new Date(Date.parse("2024/07/22, 09:00"))
+        const almeriaDate = new Date(Date.parse("2024/07/22, 11:21"))
+        const postAlmeriaDate = new Date(Date.parse("2024/07/26, 19:00"))
 
         setInterval(() => {
             const now = new Date()
-            const time = Math.abs(almeriaDate - now)
+            const clock = document.getElementById("clock")
+            const time = now < almeriaDate ? Math.abs(almeriaDate - now) : now > postAlmeriaDate ? Math.abs(now - postAlmeriaDate) : 0
+            if(time === 0){
+                clock.classList = []
+                clock.classList.add("blink-color")
+            } else if(now > postAlmeriaDate) {
+                clock.style.color = "white"
+                document.getElementById("btn").remove()
+            }
             
             dhm(time)
         }, 1000)
