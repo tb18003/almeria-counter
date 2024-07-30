@@ -66,6 +66,7 @@
 <body>
     <div class="center">
         <p style="font-size: 5vh; margin: 0;">ALMERÍA COUNTER</p>
+        <p id="banner" style="margin: 0;"></p>
         <p style="font-size: 2vh; margin: 0;">días / horas / minutos / segundos</p>
         <h1 id="clock" style="font-family: DSEG7;text-align: center; color: gold;">
             <span id="days">--</span>
@@ -92,9 +93,13 @@
                 clock.classList.add("blink-color")
             } else if(now > postAlmeriaDate) {
                 clock.style.color = "white"
-                document.getElementById("btn").remove()
+                if(document.getElementById("btn") && document.getElementById("audio")){
+                    document.getElementById("btn").remove()
+                    document.getElementById("audio").remove()
+                }
+                
+                document.getElementById("banner").innerText = "Tiempo que ha pasado desde almería (26/07/2024)"
             }
-            
             dhm(time)
         }, 1000)
 
